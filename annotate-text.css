@@ -1,0 +1,20 @@
+annotate-text {
+  display: block;
+  white-space: pre;
+}
+
+annotate-text .token {
+  background: gainsboro;
+  line-height: 2.5;
+  padding:.5em;
+  border-radius: 4px;
+}
+
+annotate-text .token:hover {
+  background: lemonchiffon;
+  cursor: pointer;
+}
+
+annotate-text .token:focus {
+  /* outline: 3px dotted blue; */
+}

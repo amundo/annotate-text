@@ -1,0 +1,32 @@
+annotate-word {
+  background:lemonchiffon;
+  position: relative;
+  display: inline-block;;
+}
+
+annotate-word table {
+  top:100%;
+  left:100%;
+  position: absolute;
+  background: white;
+  border: 1px solid gainsboro;
+  border-radius: 5px;
+  padding:0;
+  border-spacing: 0;
+}
+
+
+annotate-word table th {
+  font-size: x-small;
+  text-transform: uppercase;
+  font-family: sans-serif;
+  margin:0;
+  background:gainsboro;  
+}
+
+
+annotate-word table th ,
+annotate-word table td {
+  padding:.3em;
+  border-bottom: 1px solid lightgray;
+}
