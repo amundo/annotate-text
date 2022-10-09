@@ -8,13 +8,18 @@ annotate-text .token {
   line-height: 2.5;
   padding:.5em;
   border-radius: 4px;
+  border: 1px solid gainsboro;
+}
+
+annotate-text .token.delete {
+  background: pink;
+  border: 1px solid red;
 }
 
 annotate-text .token:hover {
-  background: lemonchiffon;
   cursor: pointer;
 }
-
+/* 
 annotate-text .token:focus {
   /* outline: 3px dotted blue; */
-}
+} */
