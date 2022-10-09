@@ -19,11 +19,18 @@ let tokenize = s => {
 
 let spanifyTokens = s => {
   let tokens = tokenize(s)
+  let lineNumber = 0
 
   let tokenSpans = tokens.map(({type, token}) => {
     let span = document.createElement('span')
     span.classList.add(type)
-    if(type == 'token'){ span.tabIndex = 0 }
+    if(type == 'token'){ 
+      span.tabIndex = 0 
+    }
+    if(type == 'newline'){ 
+      lineNumber++
+    }
+    span.dataset.lineNumber = lineNumber
     span.textContent = token
     return span
   })
