@@ -6,7 +6,7 @@ let classifySequence = sequence => {
 }
 
 let tokenize = s => {
-  let sequences = s.split(/(\P{Letter}+)/gu)
+  let sequences = s.split(/(\P{Letter})/gu)
 
   let tokens = sequences.map(sequence => ({
     token: sequence,
@@ -31,6 +31,7 @@ let spanifyTokens = s => {
       lineNumber++
     }
     span.dataset.lineNumber = lineNumber
+    span.dataset.type = type
     span.textContent = token
     return span
   })
@@ -47,24 +48,52 @@ class AnnotateText extends HTMLElement {
     this.listen()
   }
 
-  render(){
-
-  }
-
   parse(plaintext){
-    this.textContent = plaintext
-    let tokenSpans = spanifyTokens(this.textContent)
-    this.innerHTML = tokenSpans.map(tokenSpan => tokenSpan.outerHTML).join('')
+    // this.textContent = plaintext
+    this.tokenSpans = spanifyTokens(plaintext)
+    this.render()
   }
 
   paste(plaintext){
     this.parse(plaintext)
   }
 
+  render(){ 
+    let linesFragment = this.tokenSpans.reduce((linesFragment, tokenSpan, i, tokenSpans) => {
+      if(i > 0 && tokenSpan.dataset.lineNumber !=  tokenSpans[i-1].dataset.lineNumber){
+        let line = document.createElement('p')
+        line.classList.add('line')
+        line.dataset.lineNumber = i
+        line.append(tokenSpan)
+        linesFragment.append(line)
+      } else if(i === 0){
+        let line = document.createElement('p')
+        line.classList.add('line')
+        line.dataset.lineNumber = i
+        line.append(tokenSpan)
+        linesFragment.append(line)
+        linesFragment.lastElementChild.append(tokenSpan)
+      } else {
+        linesFragment.lastElementChild.append(tokenSpan)
+      }
+      return linesFragment
+    }, document.createDocumentFragment('div'))
+
+    this.append(linesFragment)
+  }
+
   listen(){
     this.addEventListener('paste', pasteEvent => {
       this.paste(pasteEvent.clipboardData.getData('text/plain'))
     })
+    
+    this.addEventListener('click', clickEvent => {
+      if(clickEvent.target.matches('.line')){
+        let line = clickEvent.target
+        line.remove()
+      }
+    })
+     
   }
 }
 
