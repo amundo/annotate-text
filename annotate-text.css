@@ -19,7 +19,7 @@ annotate-text .token.delete {
 annotate-text .token:hover {
   cursor: pointer;
 }
-/* 
-annotate-text .token:focus {
-  /* outline: 3px dotted blue; */
-} */
+
+annotate-text .line {
+  border-bottom: 1px solid;
+}
