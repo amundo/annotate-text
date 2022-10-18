@@ -39,6 +39,15 @@ let spanifyTokens = s => {
   return tokenSpans
 }
 
+
+let groupLines = tokenSpan => tokens
+  .reduce((lines, tokenSpan, i) => {
+    if(token){
+
+    }
+    return lines
+  }, [])
+
 class AnnotateText extends HTMLElement {
   constructor(){
     super()
@@ -58,7 +67,7 @@ class AnnotateText extends HTMLElement {
     this.parse(plaintext)
   }
 
-  render(){ 
+  render(){ // TODO: clean this up
     let linesFragment = this.tokenSpans.reduce((linesFragment, tokenSpan, i, tokenSpans) => {
       if(i > 0 && tokenSpan.dataset.lineNumber !=  tokenSpans[i-1].dataset.lineNumber){
         let line = document.createElement('p')
@@ -88,7 +97,7 @@ class AnnotateText extends HTMLElement {
     })
     
     this.addEventListener('click', clickEvent => {
-      if(clickEvent.target.matches('.line')){
+      if(clickEvent.target.matches('.line button.delete-line')){
         let line = clickEvent.target
         line.remove()
       }
